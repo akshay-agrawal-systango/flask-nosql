@@ -7,18 +7,27 @@ cred = credentials.Certificate('firebase_key.json')
 app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-doc_ref = db.collection("laptops").document("1")
-doc_ref.set(
+model1_doc_ref = db.collection("models").document("1")
+model1_doc_ref.set(
     {
-        "name": "HP EliteBook Model 1",
-        "brand": "HP",
+        "name": "EliteBook",
     }
 )
 
-col_ref = db.collection("laptops")
-col_ref.add(
+laptop1_doc_ref = db.collection("laptops").document("1")
+laptop1_doc_ref.set(
     {
-        "name": "Lenovo ThinkPad Model 1",
-        "brand": "Lenovo",
+        "brand": "HP",
+        "tags": ["hp", "2023", "notebook"],
+        "model": model1_doc_ref
+    }
+)
+
+laptop2_doc_ref = db.collection("laptops")
+laptop2_doc_ref.add(
+    {
+        "name": "Lenovo",
+        "tags": ["lenovo", "2023", "ultrabook"],
+        "model": db.document("models/1")
     }
 )

@@ -23,6 +23,10 @@ def get_data():
     # Process and display the data
     data = []
     for doc in docs:
-        data.append(doc.to_dict())
+        doc_data = doc.to_dict()
+        model_doc_ref = doc_data.pop("model")
+        model_doc_snap = model_doc_ref.get()
+        doc_data["model_name"] = model_doc_snap.get("name")
+        data.append(doc_data)
     
     return {'data': data}  # Return data as JSON response
